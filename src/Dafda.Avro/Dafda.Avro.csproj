@@ -21,13 +21,6 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0-preview.5.23280.8" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="Dafda">
-	    <HintPath>..\..\..\..\Users\chrfaxh\source\repos\dafda2\src\Dafda\bin\Debug\netstandard2.0\Dafda.dll</HintPath>
-	  </Reference>
-	</ItemGroup>
-
 	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>$(AssemblyName).Tests</_Parameter1>
