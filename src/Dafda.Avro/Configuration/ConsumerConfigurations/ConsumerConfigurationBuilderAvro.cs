@@ -2,7 +2,6 @@
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Dafda.Configuration;
-using Dafda.Consuming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 using Dafda.Avro.Consuming.Factories;
 using Dafda.Avro.Consuming.ErrorHandlers;
 using Dafda.Avro.Consuming.Interfaces;
+using Dafda.Avro.Consuming;
 
 namespace Dafda.Avro.Configuration.ConsumerConfigurations
 {
@@ -44,7 +44,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
         private readonly IList<NamingConvention> _namingConventions = new List<NamingConvention>();
         private Func<IServiceProvider, IConsumerScopeFactory<MessageResult<TKey, TValue>>> _consumerScopeFactory;
         private ConfigurationSource _configurationSource = ConfigurationSource.Null;
-        private IHandlerUnitOfWorkFactory _unitOfWorkFactory;
+        private Dafda.Consuming.IHandlerUnitOfWorkFactory _unitOfWorkFactory;
         private bool _readFromBeginning;
         private AvroSerializerConfig _searlizerConfig = null;
         private SchemaRegistryConfig _schemaRegistryConfig = null;
@@ -97,7 +97,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
             return WithConfiguration(ConfigurationKey.BootstrapServers, bootstrapServers);
         }
 
-        public ConsumerConfigurationBuilderAvro<TKey, TValue> WithUnitOfWorkFactory(IHandlerUnitOfWorkFactory unitOfWorkFactory)
+        public ConsumerConfigurationBuilderAvro<TKey, TValue> WithUnitOfWorkFactory(Dafda.Consuming.IHandlerUnitOfWorkFactory unitOfWorkFactory)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
             return this;
@@ -116,7 +116,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
         }
 
         public ConsumerConfigurationBuilderAvro<TKey, TValue> RegisterMessageResultHandler<TMessage, TMessageHandler>(string topic)
-            where TMessageHandler : IMessageHandler<MessageResult<TKey, TValue>> where TMessage : MessageResult<TKey, TValue>
+            where TMessageHandler : Dafda.Consuming.IMessageHandler<MessageResult<TKey, TValue>> where TMessage : MessageResult<TKey, TValue>
         {
             if (_messageRegistration != null)
                 throw new Exception("At the moment there is only support for one MessageHandler per consumer");
@@ -126,7 +126,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
         }
 
         public ConsumerConfigurationBuilderAvro<TKey, TValue> RegisterMessageHandler<TMessage, TMessageHandler>(string topic)
-            where TMessageHandler : IMessageHandler<TMessage> where TMessage : ISpecificRecord
+            where TMessageHandler : Dafda.Consuming.IMessageHandler<TMessage> where TMessage : ISpecificRecord
         {
             if (_messageRegistration != null)
                 throw new Exception("At the moment there is only support for one MessageHandler per consumer");
