@@ -1,7 +1,7 @@
 ﻿using Confluent.Kafka;
 using Dafda.Avro.Tests.TestDoubles;
-using Dafda.Consuming.Interfaces;
-using Dafda.Consuming;
+using Dafda.Avro.Consuming.Interfaces;
+using Dafda.Avro.Consuming;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,6 @@ using Moq;
 using Avro.Specific;
 using Avro;
 using Newtonsoft.Json.Linq;
-using Dafda.Avro.Consuming;
 
 namespace Dafda.Avro.Tests.Consuming
 {
@@ -24,7 +23,7 @@ namespace Dafda.Avro.Tests.Consuming
         [Fact]
         public async Task Invokes_expected_handler_when_consuming()
         {
-            var handlerMock = new Mock<IMessageHandler<FooMessage>>();
+            var handlerMock = new Mock<Dafda.Consuming.IMessageHandler<FooMessage>>();
             var handlerStub = handlerMock.Object;
 
             var messageRegistrationStub = new MessageRegistrationBuilder<string, FooMessage>()
@@ -41,7 +40,7 @@ namespace Dafda.Avro.Tests.Consuming
 
             await sut.ConsumeSingle(CancellationToken.None);
 
-            handlerMock.Verify(x => x.Handle(It.IsAny<FooMessage>(), It.IsAny<MessageHandlerContext>()), Times.Once);
+            handlerMock.Verify(x => x.Handle(It.IsAny<FooMessage>(), It.IsAny<Dafda.Consuming.MessageHandlerContext>()), Times.Once);
         }
 
         [Fact]
@@ -74,7 +73,7 @@ namespace Dafda.Avro.Tests.Consuming
         [Fact]
         public async Task Will_not_call_commit_when_auto_commit_is_enabled()
         {
-            var handlerStub = Dummy.Of<IMessageHandler<FooMessage>>();
+            var handlerStub = Dummy.Of<Dafda.Consuming.IMessageHandler<FooMessage>>();
 
             var messageRegistrationStub = new MessageRegistrationBuilder<string, FooMessage>()
                 .WithHandlerInstanceType(handlerStub.GetType())
@@ -110,7 +109,7 @@ namespace Dafda.Avro.Tests.Consuming
         [Fact]
         public async Task Will_call_commit_when_auto_commit_is_disabled()
         {
-            var handlerStub = Dummy.Of<IMessageHandler<FooMessage>>();
+            var handlerStub = Dummy.Of<Dafda.Consuming.IMessageHandler<FooMessage>>();
 
             var messageRegistrationStub = new MessageRegistrationBuilder<string, FooMessage>()
                 .WithHandlerInstanceType(handlerStub.GetType())
@@ -146,7 +145,7 @@ namespace Dafda.Avro.Tests.Consuming
         public async Task Creates_consumer_scope_when_consuming_single_message()
         {
             var messageResultStub = new MessageResultBuilder<string, FooMessage>().WithKey("foo").WithValue(new FooMessage()).Build();
-            var handlerStub = Dummy.Of<IMessageHandler<FooMessage>>();
+            var handlerStub = Dummy.Of<Dafda.Consuming.IMessageHandler<FooMessage>>();
 
             var messageRegistrationStub = new MessageRegistrationBuilder<string, FooMessage>()
                 .WithHandlerInstanceType(handlerStub.GetType())
@@ -171,7 +170,7 @@ namespace Dafda.Avro.Tests.Consuming
         public async Task Disposes_consumer_scope_when_consuming_single_message()
         {
             var messageResultStub = new MessageResultBuilder<string, FooMessage>().WithKey("foo").WithValue(new FooMessage()).Build();
-            var handlerStub = Dummy.Of<IMessageHandler<FooMessage>>();
+            var handlerStub = Dummy.Of<Dafda.Consuming.IMessageHandler<FooMessage>>();
 
             var messageRegistrationStub = new MessageRegistrationBuilder<string, FooMessage>()
                 .WithHandlerInstanceType(handlerStub.GetType())
@@ -195,7 +194,7 @@ namespace Dafda.Avro.Tests.Consuming
         public async Task Creates_consumer_scope_when_consuming_multiple_messages()
         {
             var messageResultStub = new MessageResultBuilder<string, FooMessage>().WithKey("foo").WithValue(new FooMessage()).Build();
-            var handlerStub = Dummy.Of<IMessageHandler<FooMessage>>();
+            var handlerStub = Dummy.Of<Dafda.Consuming.IMessageHandler<FooMessage>>();
 
             var messageRegistrationStub = new MessageRegistrationBuilder<string, FooMessage>()
                 .WithHandlerInstanceType(handlerStub.GetType())
@@ -240,7 +239,7 @@ namespace Dafda.Avro.Tests.Consuming
             var messageResultStub = new MessageResultBuilder<string, FooMessage>().WithKey("foo").WithValue(new FooMessage()).Build();
             
 
-            var handlerStub = Dummy.Of<IMessageHandler<FooMessage>>();
+            var handlerStub = Dummy.Of<Dafda.Consuming.IMessageHandler<FooMessage>>();
 
             var messageRegistrationStub = new MessageRegistrationBuilder<string, FooMessage>()
                 .WithHandlerInstanceType(typeof(FooMessageHandler))
@@ -320,9 +319,9 @@ namespace Dafda.Avro.Tests.Consuming
             }
         }
 
-        public class FooMessageHandler : IMessageHandler<FooMessage>
+        public class FooMessageHandler : Dafda.Consuming.IMessageHandler<FooMessage>
         {
-            public Task Handle(FooMessage message, MessageHandlerContext context)
+            public Task Handle(FooMessage message, Dafda.Consuming.MessageHandlerContext context)
             {
                 return Task.CompletedTask;
             }

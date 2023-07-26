@@ -1,6 +1,6 @@
 ﻿using Confluent.Kafka;
 using Dafda.Avro.Tests.TestDoubles;
-using Dafda.Consuming.Interfaces;
+using Dafda.Avro.Consuming.Interfaces;
 using Dafda.Consuming.MessageFilters;
 using Dafda.Consuming;
 using System;

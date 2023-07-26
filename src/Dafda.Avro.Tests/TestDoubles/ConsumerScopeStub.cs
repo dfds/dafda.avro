@@ -1,6 +1,6 @@
 ﻿using Avro.Specific;
 using Dafda.Avro.Consuming;
-using Dafda.Consuming.Interfaces;
+using Dafda.Avro.Consuming.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
