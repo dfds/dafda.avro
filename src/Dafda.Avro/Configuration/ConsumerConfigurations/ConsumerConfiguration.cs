@@ -1,9 +1,7 @@
 ﻿using Avro.Specific;
 using Dafda.Avro.Consuming;
-using Dafda.Avro.Consuming.ErrorHandlers;
 using Dafda.Avro.Consuming.Interfaces;
 using Dafda.Configuration;
-using Dafda.Consuming.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +16,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
             MessageRegistration<TKey, TValue> messageRegistration,
             Dafda.Consuming.IHandlerUnitOfWorkFactory unitOfWorkFactory,
             Func<IServiceProvider, IConsumerScopeFactory<MessageResult<TKey, TValue>>> consumerScopeFactory,
-            ConsumerErrorHandler consumerErrorHandler) : base(configuration, unitOfWorkFactory, consumerErrorHandler)
+            Dafda.Consuming.Interfaces.IConsumerErrorHandler consumerErrorHandler) : base(configuration, unitOfWorkFactory, consumerErrorHandler)
         {
             AvroConsumerScopeFactory = consumerScopeFactory;
             MessageRegistration = messageRegistration;

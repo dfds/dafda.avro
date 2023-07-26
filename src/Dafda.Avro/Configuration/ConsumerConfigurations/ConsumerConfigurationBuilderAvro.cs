@@ -49,7 +49,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
         private AvroSerializerConfig _searlizerConfig = null;
         private SchemaRegistryConfig _schemaRegistryConfig = null;
         private MessageRegistration<TKey, TValue> _messageRegistration = null;
-        private ConsumerErrorHandler _consumerErrorHandler = ConsumerErrorHandler.Default;
+        private Dafda.Consuming.Interfaces.IConsumerErrorHandler _consumerErrorHandler = Dafda.Avro.Consuming.ErrorHandlers.ConsumerErrorHandler.Default;
 
         public ConsumerConfigurationBuilderAvro<TKey, TValue> WithConfigurationSource(ConfigurationSource configurationSource)
         {

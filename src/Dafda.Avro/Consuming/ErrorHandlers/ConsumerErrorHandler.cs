@@ -10,7 +10,7 @@ namespace Dafda.Avro.Consuming.ErrorHandlers
 {
     internal sealed class ConsumerErrorHandler : IConsumerErrorHandler
     {
-        public static readonly ConsumerErrorHandler Default = new(_ => Task.FromResult(ConsumerFailureStrategy.Default));
+        public static readonly IConsumerErrorHandler Default = new ConsumerErrorHandler(_ => Task.FromResult(ConsumerFailureStrategy.Default));
 
         private readonly Func<Exception, Task<ConsumerFailureStrategy>> _eval;
 
