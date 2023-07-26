@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dafda.Avro.Consuming;
 using Dafda.Consuming.Interfaces;
 using Dafda.Avro.Consuming.Factories;
+using Dafda.Avro.Consuming.ErrorHandlers;
 
 namespace Dafda.Avro.Configuration.ConsumerConfigurations
 {

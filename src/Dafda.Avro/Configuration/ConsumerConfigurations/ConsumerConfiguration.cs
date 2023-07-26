@@ -1,7 +1,7 @@
 ﻿using Avro.Specific;
 using Dafda.Avro.Consuming;
+using Dafda.Avro.Consuming.ErrorHandlers;
 using Dafda.Configuration;
-using Dafda.Consuming;
 using Dafda.Consuming.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
     {
         public ConsumerConfiguration(IDictionary<string, string> configuration,
             MessageRegistration<TKey, TValue> messageRegistration,
-            IHandlerUnitOfWorkFactory unitOfWorkFactory,
+            Dafda.Consuming.IHandlerUnitOfWorkFactory unitOfWorkFactory,
             Func<IServiceProvider, IConsumerScopeFactory<MessageResult<TKey, TValue>>> consumerScopeFactory,
             ConsumerErrorHandler consumerErrorHandler) : base(configuration, unitOfWorkFactory, consumerErrorHandler)
         {
