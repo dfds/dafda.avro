@@ -1,5 +1,5 @@
 ﻿using Avro.Specific;
-using Dafda.Consuming.Interfaces;
+using Dafda.Avro.Consuming.Interfaces;
 using Dafda.Consuming;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Dafda.Avro.Consuming
 {
-    internal class AvroConsumer<TKey, TValue> : IConsumer where TValue : ISpecificRecord
+    internal class AvroConsumer<TKey, TValue> : Dafda.Consuming.Interfaces.IConsumer where TValue : ISpecificRecord
     {
         private readonly MessageRegistration<TKey, TValue> _messageRegistration;
         private readonly IConsumerScopeFactory<MessageResult<TKey, TValue>> _consumerScopeFactory;

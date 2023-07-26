@@ -1,6 +1,6 @@
 ﻿using Avro.Specific;
 using Confluent.Kafka;
-using Dafda.Consuming.Interfaces;
+using Dafda.Avro.Consuming.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

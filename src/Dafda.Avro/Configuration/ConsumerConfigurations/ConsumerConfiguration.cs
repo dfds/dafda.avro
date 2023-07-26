@@ -1,6 +1,7 @@
 ﻿using Avro.Specific;
 using Dafda.Avro.Consuming;
 using Dafda.Avro.Consuming.ErrorHandlers;
+using Dafda.Avro.Consuming.Interfaces;
 using Dafda.Configuration;
 using Dafda.Consuming.Interfaces;
 using System;

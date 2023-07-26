@@ -3,7 +3,7 @@ using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Dafda.Configuration;
 using Dafda.Consuming;
-using Dafda.Consuming.Interfaces;
+using Dafda.Avro.Consuming.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

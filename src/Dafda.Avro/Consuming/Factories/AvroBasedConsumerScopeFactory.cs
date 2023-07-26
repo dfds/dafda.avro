@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avro.Specific;
-using Dafda.Consuming.Interfaces;
+using Dafda.Avro.Consuming.Interfaces;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.Kafka;
 
