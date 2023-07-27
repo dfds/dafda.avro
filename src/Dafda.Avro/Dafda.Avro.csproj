@@ -2,10 +2,9 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<Nullable>enable</Nullable>
 		<Company>DFDS</Company>
 		<Authors>DFDS</Authors>
-		<Description>A small client for Kafka with Avro support</Description>
+		<Description>An DAFDA extension with support for Avro schemas.</Description>
 		<RepositoryUrl>https://github.com/dfds/dafda.avro</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/dfds/dafda.avro</PackageProjectUrl>
 		<Version>0.1.0</Version>
