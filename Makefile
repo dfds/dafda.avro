@@ -1,4 +1,4 @@
-PACKAGE			:= Dafda
+PACKAGE			:= Dafda.Avro
 PROJECT			:= $(CURDIR)/src/$(PACKAGE)/$(PACKAGE).csproj
 CONFIGURATION	:= Debug
 NUGET_API_KEY	?= $(shell git config --global nuget.token)
