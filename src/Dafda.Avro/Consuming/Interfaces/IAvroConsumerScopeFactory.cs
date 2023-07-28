@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dafda.Avro.Consuming.Interfaces
 {
-    public interface IConsumerScopeFactory<TResult>
+    public interface IAvroConsumerScopeFactory<TResult>
     {
         /// <summary>
         /// Creates consumer scope with result type defined in TResult

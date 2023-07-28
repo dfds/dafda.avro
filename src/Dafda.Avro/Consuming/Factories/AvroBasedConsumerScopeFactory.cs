@@ -13,7 +13,7 @@ using Confluent.Kafka;
 
 namespace Dafda.Avro.Consuming.Factories
 {
-    internal class AvroBasedConsumerScopeFactory<TKey, TValue> : IConsumerScopeFactory<MessageResult<TKey, TValue>> where TValue : ISpecificRecord
+    internal class AvroBasedConsumerScopeFactory<TKey, TValue> : IAvroConsumerScopeFactory<MessageResult<TKey, TValue>> where TValue : ISpecificRecord
     {
         internal readonly ILoggerFactory _loggerFactory;
         internal readonly IEnumerable<KeyValuePair<string, string>> _configuration;

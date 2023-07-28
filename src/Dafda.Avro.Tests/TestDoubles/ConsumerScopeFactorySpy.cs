@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Dafda.Avro.Tests.TestDoubles
 {
-    internal class ConsumerScopeFactorySpy<TKey, TValue> : IConsumerScopeFactory<MessageResult<TKey, TValue>> where TValue : ISpecificRecord
+    internal class ConsumerScopeFactorySpy<TKey, TValue> : IAvroConsumerScopeFactory<MessageResult<TKey, TValue>> where TValue : ISpecificRecord
     {
         private readonly IConsumerScope<MessageResult<TKey, TValue>> _result;
 

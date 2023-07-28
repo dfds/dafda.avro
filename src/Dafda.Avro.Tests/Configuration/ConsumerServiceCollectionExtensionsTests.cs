@@ -279,7 +279,7 @@ namespace Dafda.Avro.Tests.Configuration
             public static object LastHandledMessage { get; private set; }
         }
 
-        private class FailingConsumerScopeFactory : IConsumerScopeFactory<MessageResult>
+        private class FailingConsumerScopeFactory : IAvroConsumerScopeFactory<MessageResult>
         {
             public IConsumerScope<MessageResult> CreateConsumerScope()
             {

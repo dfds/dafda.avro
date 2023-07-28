@@ -119,7 +119,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
             _services.AddTransient<IHandlerUnitOfWorkFactory, T>();
         }
 
-        internal void WithConsumerScopeFactory(Func<IServiceProvider, IConsumerScopeFactory<Consuming.MessageResult<TKey, TValue>>> consumerScopeFactory)
+        internal void WithConsumerScopeFactory(Func<IServiceProvider, IAvroConsumerScopeFactory<Consuming.MessageResult<TKey, TValue>>> consumerScopeFactory)
         {
             _builder.WithConsumerScopeFactory(consumerScopeFactory);
         }

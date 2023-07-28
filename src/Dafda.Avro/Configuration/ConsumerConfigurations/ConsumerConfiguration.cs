@@ -15,13 +15,13 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
         public ConsumerConfiguration(IDictionary<string, string> configuration,
             MessageRegistration<TKey, TValue> messageRegistration,
             Dafda.Consuming.IHandlerUnitOfWorkFactory unitOfWorkFactory,
-            Func<IServiceProvider, IConsumerScopeFactory<MessageResult<TKey, TValue>>> consumerScopeFactory,
+            Func<IServiceProvider, IAvroConsumerScopeFactory<MessageResult<TKey, TValue>>> consumerScopeFactory,
             Dafda.Consuming.Interfaces.IConsumerErrorHandler consumerErrorHandler) : base(configuration, unitOfWorkFactory, consumerErrorHandler)
         {
             AvroConsumerScopeFactory = consumerScopeFactory;
             MessageRegistration = messageRegistration;
         }
-        public Func<IServiceProvider, IConsumerScopeFactory<MessageResult<TKey, TValue>>> AvroConsumerScopeFactory { get; }
+        public Func<IServiceProvider, IAvroConsumerScopeFactory<MessageResult<TKey, TValue>>> AvroConsumerScopeFactory { get; }
         public MessageRegistration<TKey, TValue> MessageRegistration { get; }
     }
 }

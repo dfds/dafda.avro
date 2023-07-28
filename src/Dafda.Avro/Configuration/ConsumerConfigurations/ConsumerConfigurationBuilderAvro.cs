@@ -42,14 +42,14 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
 
         private readonly IDictionary<string, string> _configurations = new Dictionary<string, string>();
         private readonly IList<NamingConvention> _namingConventions = new List<NamingConvention>();
-        private Func<IServiceProvider, IConsumerScopeFactory<MessageResult<TKey, TValue>>> _consumerScopeFactory;
+        private Func<IServiceProvider, IAvroConsumerScopeFactory<MessageResult<TKey, TValue>>> _consumerScopeFactory;
         private ConfigurationSource _configurationSource = ConfigurationSource.Null;
         private Dafda.Consuming.IHandlerUnitOfWorkFactory _unitOfWorkFactory;
         private bool _readFromBeginning;
         private AvroSerializerConfig _searlizerConfig = null;
         private SchemaRegistryConfig _schemaRegistryConfig = null;
         private MessageRegistration<TKey, TValue> _messageRegistration = null;
-        private Dafda.Consuming.Interfaces.IConsumerErrorHandler _consumerErrorHandler = Dafda.Avro.Consuming.ErrorHandlers.ConsumerErrorHandler.Default;
+        private Dafda.Consuming.Interfaces.IConsumerErrorHandler _consumerErrorHandler = AvroConsumerErrorHandler.Default;
 
         public ConsumerConfigurationBuilderAvro<TKey, TValue> WithConfigurationSource(ConfigurationSource configurationSource)
         {
@@ -103,7 +103,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
             return this;
         }
 
-        internal ConsumerConfigurationBuilderAvro<TKey, TValue> WithConsumerScopeFactory(Func<IServiceProvider, IConsumerScopeFactory<MessageResult<TKey, TValue>>> consumerScopeFactory)
+        internal ConsumerConfigurationBuilderAvro<TKey, TValue> WithConsumerScopeFactory(Func<IServiceProvider, IAvroConsumerScopeFactory<MessageResult<TKey, TValue>>> consumerScopeFactory)
         {
             _consumerScopeFactory = consumerScopeFactory;
             return this;
@@ -148,7 +148,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
 
         public ConsumerConfigurationBuilderAvro<TKey, TValue> WithConsumerErrorHandler(Func<Exception, Task<ConsumerFailureStrategy>> failureEvaluation)
         {
-            _consumerErrorHandler = new ConsumerErrorHandler(failureEvaluation);
+            _consumerErrorHandler = new AvroConsumerErrorHandler(failureEvaluation);
             return this;
         }
 
@@ -170,6 +170,7 @@ namespace Dafda.Avro.Configuration.ConsumerConfigurations
 
             if(_consumerScopeFactory == null)
             {
+                Console.WriteLine("Test1");
                 _consumerScopeFactory = provider =>
                 {
                     var loggerFactory = provider.GetRequiredService<ILoggerFactory>();

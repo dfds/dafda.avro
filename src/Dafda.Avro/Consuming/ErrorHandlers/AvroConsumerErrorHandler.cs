@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Dafda.Avro.Consuming.ErrorHandlers
 {
-    internal sealed class ConsumerErrorHandler : IConsumerErrorHandler
+    internal sealed class AvroConsumerErrorHandler : IConsumerErrorHandler
     {
-        public static readonly IConsumerErrorHandler Default = new ConsumerErrorHandler(_ => Task.FromResult(ConsumerFailureStrategy.Default));
+        public static readonly IConsumerErrorHandler Default = new AvroConsumerErrorHandler(_ => Task.FromResult(ConsumerFailureStrategy.Default));
 
         private readonly Func<Exception, Task<ConsumerFailureStrategy>> _eval;
 
-        public ConsumerErrorHandler(Func<Exception, Task<ConsumerFailureStrategy>> eval)
+        public AvroConsumerErrorHandler(Func<Exception, Task<ConsumerFailureStrategy>> eval)
         {
             _eval = eval;
         }

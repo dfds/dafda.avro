@@ -13,14 +13,14 @@ namespace Dafda.Avro.Consuming
     internal class AvroConsumer<TKey, TValue> : Dafda.Consuming.Interfaces.IConsumer where TValue : ISpecificRecord
     {
         private readonly MessageRegistration<TKey, TValue> _messageRegistration;
-        private readonly IConsumerScopeFactory<MessageResult<TKey, TValue>> _consumerScopeFactory;
+        private readonly IAvroConsumerScopeFactory<MessageResult<TKey, TValue>> _consumerScopeFactory;
         private readonly bool _isAutoCommitEnabled;
         private readonly IHandlerUnitOfWorkFactory _unitOfWorkFactory;
 
         public AvroConsumer(
             MessageRegistration<TKey, TValue> messageHandler,
             IHandlerUnitOfWorkFactory unitOfWorkFactory,
-            IConsumerScopeFactory<MessageResult<TKey, TValue>> consumerScopeFactory,
+            IAvroConsumerScopeFactory<MessageResult<TKey, TValue>> consumerScopeFactory,
             bool isAutoCommitEnabled = false)
         {
             _messageRegistration = messageHandler;

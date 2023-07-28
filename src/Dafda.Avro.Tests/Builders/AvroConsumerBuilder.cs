@@ -18,7 +18,7 @@ namespace Dafda.Avro.Tests.Builders
     internal class AvroConsumerBuilder<TKey, TValue> where TValue : ISpecificRecord
     {
         private IHandlerUnitOfWorkFactory _unitOfWorkFactory;
-        private IConsumerScopeFactory<MessageResult<TKey, TValue>> _consumerScopeFactory;
+        private IAvroConsumerScopeFactory<MessageResult<TKey, TValue>> _consumerScopeFactory;
         private Avro.Consuming.MessageRegistration<TKey, TValue> _registration;
         private TKey _key;
         private TValue _value;
@@ -43,7 +43,7 @@ namespace Dafda.Avro.Tests.Builders
             return this;
         }
 
-        public AvroConsumerBuilder<TKey, TValue> WithConsumerScopeFactory(IConsumerScopeFactory<MessageResult<TKey, TValue>> consumerScopeFactory)
+        public AvroConsumerBuilder<TKey, TValue> WithConsumerScopeFactory(IAvroConsumerScopeFactory<MessageResult<TKey, TValue>> consumerScopeFactory)
         {
             _consumerScopeFactory = consumerScopeFactory;
             return this;
