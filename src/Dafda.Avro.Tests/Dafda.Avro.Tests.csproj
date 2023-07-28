@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dafda" Version="0.11.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="xunit" Version="2.4.2" />
@@ -25,11 +26,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Dafda.Avro\Dafda.Avro.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Dafda">
-      <HintPath>..\..\..\..\Users\chrfaxh\source\repos\dafda2\src\Dafda\bin\Debug\netstandard2.0\Dafda.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
