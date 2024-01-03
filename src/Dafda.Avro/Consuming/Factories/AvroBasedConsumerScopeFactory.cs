@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Avro.Specific;
 using Dafda.Avro.Consuming.Interfaces;
-using Confluent.Kafka.SyncOverAsync;
 using Confluent.Kafka;
+using Chr.Avro.Confluent;
 
 namespace Dafda.Avro.Consuming.Factories
 {
@@ -21,6 +21,8 @@ namespace Dafda.Avro.Consuming.Factories
         internal readonly bool _readFromBeginning;
         internal readonly SchemaRegistryConfig _schemaRegistryConfig;
         internal readonly AvroSerializerConfig _avroSerializerConfig;
+
+        private static IConsumer<TKey, TValue> _consumer = null;
 
         public AvroBasedConsumerScopeFactory(ILoggerFactory loggerFactory, IEnumerable<KeyValuePair<string, string>> configuration, string topic, bool readFromBeginning, SchemaRegistryConfig schemaRegistryConfig, AvroSerializerConfig avroSerializerConfig)
         {
@@ -34,18 +36,24 @@ namespace Dafda.Avro.Consuming.Factories
 
         public IConsumerScope<MessageResult<TKey, TValue>> CreateConsumerScope()
         {
-            var schemaRegistry = new CachedSchemaRegistryClient(_schemaRegistryConfig);
-            var consumerBuilder = new ConsumerBuilder<TKey, TValue>(_configuration)
-                                    .SetKeyDeserializer(new AvroDeserializer<TKey>(schemaRegistry, _avroSerializerConfig).AsSyncOverAsync())
-                                    .SetValueDeserializer(new AvroDeserializer<TValue>(schemaRegistry, _avroSerializerConfig).AsSyncOverAsync());
+            if(_consumer == null)
+            {
+                var schemaRegistry = new CachedSchemaRegistryClient(_schemaRegistryConfig);
 
-            if (_readFromBeginning)
-                consumerBuilder.SetPartitionsAssignedHandler((cons, topicPartitions) => { return topicPartitions.Select(tp => new TopicPartitionOffset(tp, Offset.Beginning)); });
+                var builder = new ConsumerBuilder<TKey, TValue>(_configuration);
 
-            var consumer = consumerBuilder.Build();
-            consumer.Subscribe(_topic);
+                var consumerBuilder = new ConsumerBuilder<TKey, TValue>(_configuration)
+                                        .SetAvroKeyDeserializer(schemaRegistry)
+                                        .SetAvroValueDeserializer(schemaRegistry);
 
-            return new AvroConsumerScope<TKey, TValue>(_loggerFactory, consumer);
+                if (_readFromBeginning)
+                    consumerBuilder.SetPartitionsAssignedHandler((cons, topicPartitions) => { return topicPartitions.Select(tp => new TopicPartitionOffset(tp, Offset.Beginning)); });
+
+                _consumer = consumerBuilder.Build();
+                _consumer.Subscribe(_topic);
+            }
+           
+            return new AvroConsumerScope<TKey, TValue>(_loggerFactory, _consumer);
         }
     }
 }
