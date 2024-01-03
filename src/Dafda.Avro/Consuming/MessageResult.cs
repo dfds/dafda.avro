@@ -52,7 +52,7 @@ namespace Dafda.Avro.Consuming
         /// </summary>
         public MessageMetadata Metadata { get; set; }
 
-        internal async Task Commit()
+        public async Task Commit()
         {
             await _onCommit();
         }
