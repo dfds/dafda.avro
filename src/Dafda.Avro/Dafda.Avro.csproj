@@ -7,7 +7,7 @@
 		<Description>An DAFDA extension with support for Avro schemas.</Description>
 		<RepositoryUrl>https://github.com/dfds/dafda.avro</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/dfds/dafda.avro</PackageProjectUrl>
-		<Version>0.1.2-chr.avro</Version>
+		<Version>0.1.2</Version>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
